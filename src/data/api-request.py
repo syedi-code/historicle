@@ -2,20 +2,19 @@ import requests
 import json
 import os
 
-file_out = 'data.json'
-
 num_events = 15 # total number of events used by the game
 
+file_out = 'data.json'
 api_key = os.getenv('API_NINJAS_KEY')
 
 # format_data(): Format the API response to simpler structure
-
 # Structure of data_out:
 # [
-#     "years": [1, 2, 3]
-#     "events": ["", "", ""]
+#     "years": [1, 2, 3, ..., 99]
+#     "minYear": 1
+#     "maxYear": 99
+#     "events": ["", "", "", ...]
 # ]
-
 def format_data(data_in):
     # init empty lists
     years = []
@@ -66,8 +65,6 @@ def main():
 
         # trim down our list to only have num_events members
         trimmed_json = result_json[:num_events]
-        # print(f"Num entries: {len(result_json)}")
-        # print(f"Num entries: {len(trimmed_json)}")
 
         formatted_json = format_data(trimmed_json)
 
