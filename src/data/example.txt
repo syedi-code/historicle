@@ -1,0 +1,12 @@
+|        | - Event1
+|  FREE  | - Event2
+|        | - Event3
+-------------------
+|                   | - Event4
+|  1894 {up arrow}  | - Event5
+|                   | - Event6
+-------------------
+
+What year is it?
+{input field}
+SUBMIT

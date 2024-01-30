@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
-import EventRow from './EventRow';
-import LoadMore from './LoadMore';
+import EventRow from './GameRow';
 import historicalData from '../data/data.json';
 
 const numEvents = 3; // number of events to be displayed at one time
 
-const EventContainer: React.FC = () => {
+const GameContainer: React.FC = () => {
+    // game state setup
     const [eventsToShow, setEventsToShow] = useState(numEvents);
     const [guessedYear, setGuessedYear] = useState<number | null>(null);
+    const [guessedYears, setGuessedYears] = useState<number[]>([0]);
     const [victory, setVictory] = useState(false);
 
     const minYear = historicalData.minYear;
     const maxYear = historicalData.maxYear;
-
-    // iterate eventsToShow by numEvents
-    const loadMoreEvents = () => {
-        setEventsToShow((prevEventsToShow) => prevEventsToShow + numEvents);
-    };
 
     // handle year submission & guess checking logic
     const handleYearSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (guessedYear != null && guessedYear >= minYear && guessedYear <= maxYear) {
+            // guess is correct - we've won!
             setVictory(true);
         } else {
+            // guess is incorrect - slide the 'events' window forward and log the guessed year
             setEventsToShow((prevEventsToShow) => prevEventsToShow + numEvents);
+            if (guessedYear != null) setGuessedYears((prevGuessedYears) => [...prevGuessedYears, guessedYear]);
         }
     }
 
@@ -37,13 +36,17 @@ const EventContainer: React.FC = () => {
 
     return (
         <div>
-            {/* initial event display */}
-            <EventRow events={historicalData.events.slice(0, eventsToShow)} />
-
-            {/* load more events button */}
-            {!victory && eventsToShow < historicalData.events.length && (
-                <LoadMore onClick={loadMoreEvents} />
-            )}
+            {/* dynamic EventRow display */}
+            <div style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto', display: 'flex', flexDirection: 'column' }}>
+                {Array.from({ length: Math.ceil(eventsToShow / numEvents) }, (_, index) => (
+                    <EventRow
+                        key={index}
+                        year={guessedYears[index]}
+                        targetYear={historicalData.minYear}
+                        events={historicalData.events.slice(index * numEvents, (index+1) * numEvents)}
+                    />
+                ))}
+            </div>
 
             {/* year input & submit button */}
             {!victory && (
@@ -60,10 +63,10 @@ const EventContainer: React.FC = () => {
                 </form>
             )}
 
-            {/* Victory screen */}
+            {/* victory message */}
             {victory && <div>Congratulations! You guessed the correct year!</div>}
         </div>
     );
 };
 
-export default EventContainer;
+export default GameContainer;
