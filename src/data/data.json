@@ -1,7 +1,10 @@
 {
   "years": [
-    1984
+    1984,
+    1985
   ],
+  "minYear": 1984,
+  "maxYear": 1985,
   "events": [
     "The original American Telephone & Telegraph Company is divested of its 22 Bell System companies as a result of the settlement of the 1974 United States Department of Justice antitrust suit against AT&T.",
     "Brunei becomes independent of the United Kingdom.",
@@ -12,6 +15,11 @@
     "Tropical Storm Domoina makes landfall in southern Mozambique, eventually causing 214 deaths and some of the most severe flooding so far recorded in the region.",
     "Doctor John Buster and a research team at Harbor-UCLA Medical Center in the United States announce history's first embryo transfer, from one woman to another resulting in a live birth.",
     "Space Shuttle program: STS-41-B is launched using Space Shuttle Challenger.",
-    "Space Shuttle program: STS-41-B Mission: Astronauts Bruce McCandless II and Robert L. Stewart make the first untethered space walk using the Manned Maneuvering Unit (MMU)."
+    "Space Shuttle program: STS-41-B Mission: Astronauts Bruce McCandless II and Robert L. Stewart make the first untethered space walk using the Manned Maneuvering Unit (MMU).",
+    "The first British mobile phone call is made by Michael Harrison to his father Sir Ernest Harrison, chairman of Vodafone.",
+    "Japan Aerospace Exploration Agency launches Sakigake, Japan's first interplanetary spacecraft and the first deep space probe to be launched by any country other than the United States or the Soviet Union.",
+    "Sandinista Daniel Ortega becomes president of Nicaragua and vows to continue the transformation to socialism and alliance with the Soviet Union and Cuba; American policy continues to support the Contras in their revolt against the Nicaraguan government.",
+    "A passenger train plunges into a ravine in Ethiopia, killing 428 in the worst railroad disaster in Africa.",
+    "Galaxy Airlines Flight 203 crashes near Reno-Tahoe International Airport in Reno, Nevada, killing 70 people."
   ]
 }

@@ -20,7 +20,7 @@ const EventContainer: React.FC = () => {
 
             {/* load more events button */}
             {eventsToShow < historicalData.events.length && (
-                <LoadMore onClick = {loadMoreEvents} />
+                <LoadMore onClick={loadMoreEvents} />
             )}
         </div>
     );
