@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import historicalData from '../data/data.json';
 
 import EventRow from './GameRow';
@@ -17,9 +17,16 @@ const GameContainer: React.FC = () => {
     const minYear = historicalData.minYear;
     const maxYear = historicalData.maxYear;
 
+    // addressing synchronicity issues when updating year
+    useEffect(() => {
+        const year: number = Number(inputValue);
+        setGuessedYear(year);
+    }, [inputValue]);
+
     // handle year submission & guess checking logic
     const handleYearSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log("handleYearSubmit:", guessedYear);
 
         if (guessedYear != null && guessedYear >= minYear && guessedYear <= maxYear) {
             // guess is correct - we've won!
@@ -31,24 +38,27 @@ const GameContainer: React.FC = () => {
         }
     };
 
+    // callback for pressing a keypad number, updates 'year' immediately
     const handleDigitClick = (digit: number) => {
-        if (inputValue.length < 4) {
+        if (inputValue.length <= 4) {
             setInputValue((prevValue) => prevValue + digit);
+            const year: number = Number(inputValue);
+            setGuessedYear(year);
         }
-        
-        const year: number = Number(inputValue);
-        console.log(year);
-        setGuessedYear(year);
     };
 
+    // callback for pressing backspace on keypad
     const handleBackspaceClick = () => {
         setInputValue((prevValue) => prevValue.slice(0, -1));
     };
 
+    // callback for pressing submit on keypad
     const handleSubmitClick = () => {
         const year: number = Number(inputValue);
         setGuessedYear(year);
         setInputValue('');
+
+        console.log("handleSubmitClick", guessedYear, minYear, maxYear);
 
         if (guessedYear != null && guessedYear >= minYear && guessedYear <= maxYear) {
             // guess is correct - we've won!
@@ -83,7 +93,8 @@ const GameContainer: React.FC = () => {
                     <input 
                         type="text"
                         value={inputValue}
-                        maxLength={4}
+                        maxLength={5}
+                        readOnly
                         onChange={(e) => setInputValue(e.target.value.replace(/\D/g, '').slice(0, 4))}
                     />
                 </form>
