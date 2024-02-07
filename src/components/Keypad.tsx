@@ -18,8 +18,20 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
         padding: '10px', // Padding for larger size
         fontSize: '18px', // Font size
         cursor: 'pointer', // Cursor on hover
+        fontWeight: 'bold',
         transition: 'background-color 1.0s',
     };
+
+    // keypad styling
+    const keypadStyle: React.CSSProperties = {
+        justifyContent: 'center',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '5px',
+        width: '15%',
+        margin: 'auto',
+        marginBottom: '10px',
+    }
     
     const clickedButtonStyle: React.CSSProperties = {
         ...buttonStyle,
@@ -33,11 +45,11 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
     );
 
     const BackspaceButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-        <button onClick={onClick}>Backspace</button>
+        <button style={buttonStyle} onClick={onClick}>BACK</button>
     );
     
     const SubmitButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-        <button onClick={onClick}>Submit</button>
+        <button style={buttonStyle} onClick={onClick}>ENTER</button>
     );
 
     // callbacks
@@ -54,7 +66,7 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
     // display
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '10px', margin: 'auto', marginTop: '10px' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', justifyContent: 'center', marginBottom: '10px' }}>
+            <div style={keypadStyle}>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((digit) => (
                     <DigitButton
                         key={digit}
@@ -62,9 +74,7 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
                         onClick={() => handleDigitClick(digit)}
                     />
                 ))}
-            </div>
 
-            <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
                 <BackspaceButton onClick={onBackspaceClick} />
                 <SubmitButton onClick={onSubmitClick} />
             </div>

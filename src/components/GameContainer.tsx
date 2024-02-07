@@ -100,12 +100,15 @@ const GameContainer: React.FC = () => {
                 </form>
             )}
 
-            <Keypad 
-                onDigitClick={handleDigitClick}
-                onBackspaceClick={handleBackspaceClick}
-                onSubmitClick={handleSubmitClick}
-                inputValue={inputValue}
-            />
+            {/* keypad for year input */}
+            {!victory && (
+                <Keypad 
+                    onDigitClick={handleDigitClick}
+                    onBackspaceClick={handleBackspaceClick}
+                    onSubmitClick={handleSubmitClick}
+                    inputValue={inputValue}
+                />
+            )}
 
             {/* victory message */}
             {victory && <div>Congratulations! You guessed the correct year!</div>}
