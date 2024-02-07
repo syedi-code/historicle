@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface KeypadProps {
     onDigitClick: (digit: number) => void;
@@ -8,8 +9,6 @@ interface KeypadProps {
 }
 
 const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmitClick, inputValue }) => {
-    const [lastClicked, setLastClicked] = useState<number | null>(null);
-
     // button styling
     const buttonStyle: React.CSSProperties = {
         backgroundColor: '#D3D3D3', // Grey color
@@ -32,35 +31,51 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
         margin: 'auto',
         marginBottom: '10px',
     }
-    
-    const clickedButtonStyle: React.CSSProperties = {
-        ...buttonStyle,
-        backgroundColor: 'black', // Black color when clicked
-        color: 'white', // White text when clicked
-    };
 
     // button components
     const DigitButton: React.FC<{ digit: number; onClick: () => void }> = ({ digit, onClick }) => (
-        <button style={lastClicked === digit ? clickedButtonStyle : buttonStyle} onClick={onClick}>{digit}</button>
+        <motion.div
+            key={digit}
+            style={buttonStyle}
+            whileHover={{ scale: 0.9, backgroundColor: 'black', color: 'white' }}
+            transition={{ duration: 0.3 }}
+            onClick={() => {
+                handleDigitClick(digit);
+            }}
+        >
+            {digit}
+        </motion.div>
     );
 
     const BackspaceButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-        <button style={buttonStyle} onClick={onClick}>BACK</button>
+        <motion.div
+            style={buttonStyle}
+            whileHover={{ scale: 0.9, backgroundColor: 'black', color: 'white' }}
+            transition={{ duration: 0.3 }}
+            onClick={() => {
+                onBackspaceClick();
+            }}
+        >
+            BACK
+        </motion.div>
     );
     
     const SubmitButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-        <button style={buttonStyle} onClick={onClick}>ENTER</button>
+        <motion.div
+            style={buttonStyle}
+            whileHover={{ scale: 0.9, backgroundColor: 'black', color: 'white' }}
+            transition={{ duration: 0.3 }}
+            onClick={() => {
+                onSubmitClick();
+            }}
+        >
+            ENTER
+        </motion.div>
     );
 
     // callbacks
     const handleDigitClick = (digit: number) => {
         onDigitClick(digit);
-        setLastClicked(digit);
-
-        // Reset the style after a short delay
-        setTimeout(() => {
-            setLastClicked(null);
-        }, 300);
     }
 
     // display

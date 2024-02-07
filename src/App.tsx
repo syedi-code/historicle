@@ -1,7 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
 import Header from './components/Header';
-import EventData from './components/EventData';
 import GameContainer from './components/GameContainer';
 import './App.css';
 
