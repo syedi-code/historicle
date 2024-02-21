@@ -1,18 +1,36 @@
 import requests
 import json
 import os
+import random
 
-num_events = 15 # total number of events used by the game
+num_events = 30 # total number of events used by the game
+                # this should be "(maxGuesses + 1) * 3"
 
 file_out = 'data.json'
 api_key = os.getenv('API_NINJAS_KEY')
+
+# clean_data(): Attempts to remove duplicate events from the JSON reponse
+# Does so by checking if the first 8 characters in an event matches the first 8 of any other, then removes it
+# This is a crappy workaround but it's better than nothing, maybe I will update it in the future :)
+def clean_data(data_in):
+    unique_descriptions = set()
+
+    unique_events = []
+    for event in data_in:
+        description_prefix = event['event'][:8]
+
+        if description_prefix not in unique_descriptions:
+            unique_descriptions.add(description_prefix)
+            unique_events.append(event)
+    
+    return unique_events
 
 # format_data(): Format the API response to simpler structure
 # Structure of data_out:
 # [
 #     "years": [1, 2, 3, ..., 99]
-#     "minYear": 1
-#     "maxYear": 99
+#     "minYear": 0
+#     "maxYear": 2024
 #     "events": ["", "", "", ...]
 # ]
 def format_data(data_in):
@@ -42,7 +60,8 @@ def format_data(data_in):
     return data_out
 
 def main():
-    year = 1984 # starting year (will be randomly generated in the future)
+    #year = random.randint(0, 2024) # starting year
+    year = 404
     api_url = 'https://api.api-ninjas.com/v1/historicalevents?year={}'.format(year)
     response = requests.get(api_url, headers={'X-Api-Key': api_key})
 
@@ -59,11 +78,13 @@ def main():
 
             if response.status_code == requests.codes.ok:
                 result_json.extend(response.json())
-                num_returned_events += len(result_json)
+                result_json = clean_data(result_json)
+                num_returned_events = len(result_json)
+
             else:
                 print("Error:", response.status_code, response.text)
 
-        # trim down our list to only have num_events members
+        # trim down our list to only have n = num_events members        
         trimmed_json = result_json[:num_events]
 
         formatted_json = format_data(trimmed_json)

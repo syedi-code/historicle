@@ -25,6 +25,7 @@ const isWithinCentury = (year: number, targetYear: number): boolean => {
 
 // style for free space & last guessed year
 const leftColumnStyle: React.CSSProperties = {
+    fontFamily: 'DM Sans, sans-serif',
     display: 'flex',
     flexDirection: 'column',
     marginTop: 'auto',
@@ -42,6 +43,15 @@ const hintStyle: React.CSSProperties = {
     fontWeight: 'bold',
 }
 
+const eventStyle: React.CSSProperties = {
+    textAlign: 'left',
+    fontFamily: 'Amiri, serif',
+    fontWeight: 700,
+    lineHeight: '1.1',
+    fontSize: '18px',
+    paddingRight: '10px',
+}
+
 const EventRow: React.FC<EventRowProps> = ({ year, targetYear, events }) => {
     // useEffect to log 'year' on each render
     // for testing - remove later :)
@@ -50,43 +60,43 @@ const EventRow: React.FC<EventRowProps> = ({ year, targetYear, events }) => {
     }, [year]);
 
     return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
-        {/* print either free space or last guessed year */}
-        <div style={leftColumnStyle}>
-            {year === 0
-                ? (<p style={leftColumnStyle}>
-                        FREE
-                    </p>
-                ) : (
-                    <React.Fragment>
-                        <p style={leftColumnStyle}>
-                            {`${year} ${year < targetYear ? '↑' : '↓'}`}
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+            {/* print either free space or last guessed year */}
+            <div style={leftColumnStyle}>
+                {year === 0
+                    ? (<p style={leftColumnStyle}>
+                            FREE
                         </p>
-                    </React.Fragment>
-                )
-            }
-            
-            {/* print hint(s) if applicable */}
-            <p style={hintStyle}>
-                {isWithinDecade(year, targetYear) && <span>same decade!</span>}
-            </p>
-            <p style={hintStyle}>
-                {isWithinCentury(year, targetYear) && <span>same century!</span>}
-            </p>
-        </div>
-        <VerticalSpacer />
+                    ) : (
+                        <React.Fragment>
+                            <p style={leftColumnStyle}>
+                                {`${year} ${year < targetYear ? '↑' : '↓'}`}
+                            </p>
+                        </React.Fragment>
+                    )
+                }
+                
+                {/* print hint(s) if applicable */}
+                <p style={hintStyle}>
+                    {isWithinDecade(year, targetYear) && <span>same decade!</span>}
+                </p>
+                <p style={hintStyle}>
+                    {isWithinCentury(year, targetYear) && <span>same century!</span>}
+                </p>
+            </div>
+            <VerticalSpacer />
 
-        {/* render our slice of events[] as a list */}
-        <div>
-            <ul style={{ listStyleType: 'disc' }}>
-                {events.map((event, index) => (
-                    <li style={{ textAlign: 'left' }} key={index}>
-                        {event}
-                    </li>
-                ))}
-            </ul>
+            {/* render our slice of events[] as a list */}
+            <div style={{ backgroundColor: '#ededed' }}>
+                <ul style={{ listStyleType: 'disc' }}>
+                    {events.map((event, index) => (
+                        <li style={eventStyle} key={index}>
+                            {event}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
-    </div>
     )
 };
 

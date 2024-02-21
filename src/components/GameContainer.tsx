@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import historicalData from '../data/data.json';
 
 import EventRow from './GameRow';
 import Keypad from './Keypad';
+import GuessTracker from './GuessTracker';
 
 const numEvents = 3; // number of events to be displayed at one time
-const maxGuesses = 5; // number of guesses available to user before loss
+const maxGuesses: number = Number(9); // number of guesses available to user before loss
 
 const GameContainer: React.FC = () => {
-    // game state setup
+    /************* GAME VARIABLES *************/
     const [eventsToShow, setEventsToShow] = useState(numEvents);
     const [guessedYear, setGuessedYear] = useState<number | null>(null);
     const [guessedYears, setGuessedYears] = useState<number[]>([0]);
@@ -18,16 +19,25 @@ const GameContainer: React.FC = () => {
 
     const [victory, setVictory] = useState(false);
     const [defeat, setDefeat] = useState(false);
+    
+    const eventRowContainerRef = useRef<HTMLDivElement>(null);
 
     const minYear = historicalData.minYear;
     const maxYear = historicalData.maxYear;
 
-    // addressing synchronicity issues when updating year
+    
+    /************* LOGIC *************/
     useEffect(() => {
+        // addressing synchronicity issues when updating year
         const year: number = Number(inputValue);
         setGuessedYear(year);
 
-        
+        // event container scroll
+        if (eventRowContainerRef.current) {
+            eventRowContainerRef.current.scrollTop = eventRowContainerRef.current.scrollHeight;
+        }
+
+        // addressing synchronicity issues when checking for defeat
         if (numGuesses === maxGuesses) {
             setDefeat(true);
         }
@@ -69,10 +79,62 @@ const GameContainer: React.FC = () => {
         }
     };
 
+    // :)
+    const generateAffirmation = () => {
+        const affirmations = ["Nicely done!", "Good job!", "Nice one!", "Awesome!", "Well done.", "You might be the greatest to ever do it..."];
+
+        return affirmations[Math.floor(Math.random() * affirmations.length)];
+    }
+
+    /************* CSS STYLING *************/
+    const inputStyle: React.CSSProperties = {
+        width: '15%',
+        height: '90px',
+        textAlign: 'right',
+        fontFamily: 'DM Sans, sans-serif',
+        fontWeight: '900',
+        fontSize: '84px'
+    }
+
+    const labelStyle: React.CSSProperties = {
+        display: 'block',
+        marginTop: '10px',
+        marginBottom: '5px',
+        fontFamily: 'DM Sans, sans-serif',
+        fontWeight: '900',
+        fontSize: '32px'
+    }
+
+    const eventContainerStyle: React.CSSProperties = {
+        maxHeight: '35%',
+        overflowY: 'auto',
+        width: '50%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+    }
+
+    const inputContainerStyle: React.CSSProperties = {
+        position: 'fixed',
+        bottom: '2%',
+        left: 0,
+        right: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    }
+
+    const endGameStyle: React.CSSProperties = {
+        marginTop: '20px',
+        fontFamily: 'DM Sans, sans-serif',
+        fontSize: '24px'
+    }
+
+    /************* COMPONENT RENDER *************/
     return (
-        <div>
+        <div style={{ height: '100vh', overflowY: 'auto' }}>
             {/* dynamic EventRow display */}
-            <div style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto', display: 'flex', flexDirection: 'column' }}>
+            <div ref={eventRowContainerRef} style={eventContainerStyle}>
                 {Array.from({ length: Math.ceil(eventsToShow / numEvents) }, (_, index) => (
                     <motion.div key={index} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
                         <EventRow
@@ -85,37 +147,54 @@ const GameContainer: React.FC = () => {
                 ))}
             </div>
 
-            {/* year input & submit button */}
-            {!victory && !defeat && (
-                <form>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>
-                        What year is it?
-                    </label>
-                    <input 
-                        type="text"
-                        value={inputValue}
-                        maxLength={4}
-                        readOnly
-                        onChange={(e) => setInputValue(e.target.value.replace(/\D/g, '').slice(0, 4))}
+            <div style={inputContainerStyle}>
+                {/* year input & submit button */}
+                {!victory && !defeat && (
+                    <form>
+                        <label style={labelStyle}>
+                            WHAT YEAR IS IT?
+                        </label>
+                        <input 
+                            style={inputStyle}
+                            type="text"
+                            value={inputValue}
+                            maxLength={4}
+                            readOnly
+                            onChange={(e) => setInputValue(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        />
+                    </form>
+                )}
+                {/* keypad for year input */}
+                {!victory && !defeat && (
+                    <Keypad 
+                        onDigitClick={handleDigitClick}
+                        onBackspaceClick={handleBackspaceClick}
+                        onSubmitClick={handleSubmitClick}
+                        inputValue={inputValue}
                     />
-                </form>
-            )}
+                )}
 
-            {/* keypad for year input */}
-            {!victory && !defeat && (
-                <Keypad 
-                    onDigitClick={handleDigitClick}
-                    onBackspaceClick={handleBackspaceClick}
-                    onSubmitClick={handleSubmitClick}
-                    inputValue={inputValue}
-                />
-            )}
+                {/* guess tracker */}
+                {!victory && !defeat && (
+                    <GuessTracker 
+                        maxGuesses={maxGuesses}
+                        numGuesses={numGuesses}
+                        victory={victory} 
+                    />
+                )}
+            </div>
+            
 
             {/* victory message */}
-            {victory && <div>Congratulations! You guessed the correct year!</div>}
+            {victory && <div style={endGameStyle}>
+                <b>{generateAffirmation()} </b>
+                The years were <b>{minYear}</b> - <b>{maxYear}</b>.
+            </div>}
 
             {/* defeat message */}
-            {defeat && <div>You lost.</div>}
+            {defeat && <div style={endGameStyle}>
+                Better luck next time! The years were <b>{minYear}</b> - <b>{maxYear}</b>.
+            </div>}
         </div>
     );
 };
