@@ -2,26 +2,44 @@ import requests
 import json
 import os
 import random
+import re
 
-num_events = 30 # total number of events used by the game
-                # this should be "(maxGuesses + 1) * 3"
+num_events = 24 # total number of events used by the game
+                # this should be equal to {(maxGuesses + 1) * 3}
 
 file_out = 'data.json'
 api_key = os.getenv('API_NINJAS_KEY')
 
+# contains_year(): Helper function for clean_data()
+# Uses a regular expression to see if an event description contains any number of length 3 or 4
+def contains_year(desc):
+    year_pattern = re.compile(r'\b\d{3,4}\b')
+
+    return bool(re.search(year_pattern, desc))
+
 # clean_data(): Attempts to remove duplicate events from the JSON reponse
 # Does so by checking if the first 8 characters in an event matches the first 8 of any other, then removes it
 # This is a crappy workaround but it's better than nothing, maybe I will update it in the future :)
+# Additionally, filters a few words which are overrepresented in the data
 def clean_data(data_in):
+    filtered_words = ['killing', 'deaths', 'deadliest']
     unique_descriptions = set()
 
+    # character checking
     unique_events = []
     for event in data_in:
         description_prefix = event['event'][:8]
 
         if description_prefix not in unique_descriptions:
             unique_descriptions.add(description_prefix)
-            unique_events.append(event)
+
+            # filter out events containing certain words
+            if not any(word in event['event'] for word in filtered_words):
+                event['event'] = event['event'].replace('[citation needed]', '') # remove this tag which appears rarely
+                
+                # final check for containing a year
+                if not contains_year(event['event']):
+                    unique_events.append(event)
     
     return unique_events
 
@@ -60,8 +78,8 @@ def format_data(data_in):
     return data_out
 
 def main():
-    #year = random.randint(0, 2024) # starting year
-    year = 404
+    year = random.randint(0, 2024) # starting year
+    # year = 1632
     api_url = 'https://api.api-ninjas.com/v1/historicalevents?year={}'.format(year)
     response = requests.get(api_url, headers={'X-Api-Key': api_key})
 

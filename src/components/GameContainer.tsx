@@ -7,7 +7,7 @@ import Keypad from './Keypad';
 import GuessTracker from './GuessTracker';
 
 const numEvents = 3; // number of events to be displayed at one time
-const maxGuesses: number = Number(9); // number of guesses available to user before loss
+const maxGuesses: number = Number(7); // number of guesses available to user before loss
 
 const GameContainer: React.FC = () => {
     /************* GAME VARIABLES *************/
@@ -28,7 +28,6 @@ const GameContainer: React.FC = () => {
     
     /************* LOGIC *************/
     useEffect(() => {
-        // addressing synchronicity issues when updating year
         const year: number = Number(inputValue);
         setGuessedYear(year);
 
@@ -37,7 +36,6 @@ const GameContainer: React.FC = () => {
             eventRowContainerRef.current.scrollTop = eventRowContainerRef.current.scrollHeight;
         }
 
-        // addressing synchronicity issues when checking for defeat
         if (numGuesses === maxGuesses) {
             setDefeat(true);
         }
@@ -63,16 +61,12 @@ const GameContainer: React.FC = () => {
         setGuessedYear(year);
         setInputValue('');
 
-        // guess checking logic
-        if (guessedYear != null && guessedYear >= minYear && guessedYear <= maxYear) {
-            // guess is correct - we've won!
+        if (guessedYear != null && guessedYear >= minYear && guessedYear <= maxYear) {      // guess is correct - we've won!
             setVictory(true);
         } else {
-            // guess is incorrect
             setNumGuesses((prevNumGuesses) => prevNumGuesses + 1);
 
-            // slide the 'events' window forward and log the guessed year
-            if (!defeat) {
+            if (!defeat) {      // slide the 'events' window forward and log the guessed year
                 setEventsToShow((prevEventsToShow) => prevEventsToShow + numEvents);
                 if (guessedYear != null) setGuessedYears((prevGuessedYears) => [...prevGuessedYears, year]);
             }
@@ -132,7 +126,7 @@ const GameContainer: React.FC = () => {
 
     /************* COMPONENT RENDER *************/
     return (
-        <div style={{ height: '100vh', overflowY: 'auto' }}>
+        <div style={{ height: '80vh', overflowY: 'auto' }}>
             {/* dynamic EventRow display */}
             <div ref={eventRowContainerRef} style={eventContainerStyle}>
                 {Array.from({ length: Math.ceil(eventsToShow / numEvents) }, (_, index) => (

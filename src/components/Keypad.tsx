@@ -11,13 +11,14 @@ interface KeypadProps {
 const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmitClick, inputValue }) => {
     // button styling
     const buttonStyle: React.CSSProperties = {
+        fontFamily: 'DM Sans, sans-serif',
+        fontWeight: '900',
         backgroundColor: '#D3D3D3', // Grey color
         borderRadius: '8px', // Rounded corners
         border: 'none', // No border
         padding: '10px', // Padding for larger size
         fontSize: '18px', // Font size
         cursor: 'pointer', // Cursor on hover
-        fontWeight: 'bold',
         transition: 'background-color 1.0s',
     };
 
