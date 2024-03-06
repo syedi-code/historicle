@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import historicalData from '../../data.json';
+import historicalData from '../data/data.json';
 
 import EventRow from './GameRow';
 import Keypad from './Keypad';

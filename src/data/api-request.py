@@ -7,7 +7,8 @@ import re
 num_events = 24 # total number of events used by the game
                 # this should be equal to {(maxGuesses + 1) * 3}
 
-file_out = 'data.json'
+script_directory = os.path.dirname(os.path.abspath(__file__))
+file_out = os.path.join(script_directory, 'data.json')
 api_key = os.getenv('API_NINJAS_KEY')
 
 # contains_year(): Helper function for clean_data()
