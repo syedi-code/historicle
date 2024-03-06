@@ -24,7 +24,7 @@ def contains_year(desc):
 # This is a crappy workaround but it's better than nothing, maybe I will update it in the future :)
 # Additionally, filters a few words [filtered_words] which are overrepresented in the data
 def clean_data(data_in):
-    filtered_words = ['killing', 'deaths', 'deadliest']
+    filtered_words = ['killing', 'deaths', 'deadliest', '7290347983479']
     unique_descriptions = set()
 
     # character checking
