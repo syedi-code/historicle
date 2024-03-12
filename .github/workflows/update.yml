@@ -3,6 +3,7 @@ name: Update Data & Deploy Site
 on:
   schedule:
     - cron: '*/10 * * * *' # Run every 10 minutes
+  workflow_dispatch:
 
 jobs:
   update-and-deploy:
