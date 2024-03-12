@@ -37,7 +37,4 @@ jobs:
           git add .
           git commit -m "Update data $(date -u "+%Y-%m-%d %H:%M:%S")"
           git push
-
-      - name: Trigger Netlify deployment
-        run: curl -X POST -d {} $NETLIFY_BUILD_HOOK
     
