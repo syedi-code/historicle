@@ -2,7 +2,7 @@ name: Update Data & Deploy Site
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Run every day at midnight
+    - cron: '0 7 * * *' # Run every day at midnight
   workflow_dispatch:
 
 jobs:
