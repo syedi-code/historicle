@@ -7,11 +7,13 @@ import re
 num_events = 24 # total number of events used by the game
                 # this should be equal to {(maxGuesses + 1) * 3}
 
-file_out = 'data.json'
+script_directory = os.path.dirname(os.path.abspath(__file__))
+file_out = os.path.join(script_directory, 'data.json')
 api_key = os.getenv('API_NINJAS_KEY')
 
 # contains_year(): Helper function for clean_data()
 # Uses a regular expression to see if an event description contains any number of length 3 or 4
+# Assumed to be a year and removed
 def contains_year(desc):
     year_pattern = re.compile(r'\b\d{3,4}\b')
 
@@ -20,9 +22,9 @@ def contains_year(desc):
 # clean_data(): Attempts to remove duplicate events from the JSON reponse
 # Does so by checking if the first 8 characters in an event matches the first 8 of any other, then removes it
 # This is a crappy workaround but it's better than nothing, maybe I will update it in the future :)
-# Additionally, filters a few words which are overrepresented in the data
+# Additionally, filters a few words [filtered_words] which are overrepresented in the data
 def clean_data(data_in):
-    filtered_words = ['killing', 'deaths', 'deadliest']
+    filtered_words = ['killing', 'deaths', 'deadliest', '7290347983479']
     unique_descriptions = set()
 
     # character checking
@@ -104,7 +106,6 @@ def main():
 
         # trim down our list to only have n = num_events members        
         trimmed_json = result_json[:num_events]
-
         formatted_json = format_data(trimmed_json)
 
         # save the result into a JSON file
