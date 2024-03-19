@@ -24,6 +24,7 @@ npm run start
 ## Technologies
 - [TypeScript](https://www.typescriptlang.org/)
 - [React 18](https://react.dev/)
+- [Node.js v16](https://nodejs.org/en)
 - [API Ninjas' Historical Events API](https://api-ninjas.com/api/historicalevents)
 - [Framer Motion](https://www.framer.com/motion/) for component animation
 - [Netlify](https://www.netlify.com/) for deployment
