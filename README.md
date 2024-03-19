@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+# Historicle
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A browser-based game where the player guesses a daily-rotating target year based on given historical events. Historicle is hosted online at [historiclega.me](historiclega.me). Inspired by other browser "dailies" such as Wordle, PokeDoku, and Cine2Nerdle among others.
 
-## Available Scripts
+<hr style="border:none; height:3px; background-color:#cccccc;">
 
-In the project directory, you can run:
+<div align="center">
+  <img src="https://github.com/syedi-code/historicle/blob/main/src/img/site.png" alt="alt text" style="width:50%;">
+</div>
 
-### `npm start`
+<hr style="border:none; height:3px; background-color:#cccccc;">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Run Locally
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Historicle can be run locally by cloning the repository and using npm to start a local development server:
 
-### `npm test`
+```
+git clone https://github.com/syedi-code/historicle.git
+cd historicle
+npm install
+npm run start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
+- [TypeScript](https://www.typescriptlang.org/)
+- [React 18](https://react.dev/)
+- [API Ninjas' Historical Events API](https://api-ninjas.com/api/historicalevents)
+- [Framer Motion](https://www.framer.com/motion/) for component animation
+- [Netlify](https://www.netlify.com/) for deployment
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
+- `src/components` contains all React components
+  -   `GameContainer` is the parent component and is where the bulk of the game logic takes place
+- `src/data` contains the historical event parser
+  -  `api-request.py` interfaces with the Historical Events API, cleaning and formatting the data before exporting it to `data.json`
+  -  `data.json` contains the cleaned data, which is imported in the `GameContainer` component
+  -  `api-request.py` is run automatically every day at midnight PST by GitHub Actions
