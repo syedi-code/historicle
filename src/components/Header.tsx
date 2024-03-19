@@ -4,11 +4,22 @@ interface HeaderProps {
     title: string;
 }
 
+const titleContainerStyle: React.CSSProperties = {
+    marginTop: '50px',
+    marginBottom: '25px',
+    textAlign: 'center'
+}
+
 const titleStyle: React.CSSProperties = {
     fontFamily: "Playfair Display, serif",
     fontWeight: '700',
     fontSize: '48px',
-    marginBottom: '0px'
+    width: 'max-content',
+    textAlign: 'center',
+    backgroundColor: '#000000',
+    color: '#ffffff',
+    paddingLeft: '10px',
+    paddingRight: '10px',
 }
 
 const subtitleStyle: React.CSSProperties = {
@@ -21,7 +32,9 @@ const subtitleStyle: React.CSSProperties = {
 const Header: React.FC<HeaderProps> = ({ title }) => {
     return (
         <header>
-            <h1 style={titleStyle}>{title}</h1>
+            <div style={titleContainerStyle}>
+                <span style={titleStyle}>{title}</span>
+            </div>
 
             <div>
                 <p style={subtitleStyle}>

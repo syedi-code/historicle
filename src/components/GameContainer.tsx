@@ -5,6 +5,7 @@ import historicalData from '../data/data.json';
 import EventRow from './GameRow';
 import Keypad from './Keypad';
 import GuessTracker from './GuessTracker';
+import CountdownTimer from './CountdownTimer';
 
 const numEvents = 3; // number of events to be displayed at one time
 const maxGuesses: number = Number(7); // number of guesses available to user before loss
@@ -13,7 +14,7 @@ const GameContainer: React.FC = () => {
     /************* GAME VARIABLES *************/
     const [eventsToShow, setEventsToShow] = useState(numEvents);
     const [guessedYear, setGuessedYear] = useState<number | null>(null);
-    const [guessedYears, setGuessedYears] = useState<number[]>([0]);
+    const [guessedYears, setGuessedYears] = useState<number[]>([-1]);
     const [numGuesses, setNumGuesses] = useState<number>(0);
     const [inputValue, setInputValue] = useState<string>('');
 
@@ -180,15 +181,29 @@ const GameContainer: React.FC = () => {
             
 
             {/* victory message */}
-            {victory && <div style={endGameStyle}>
-                <b>{generateAffirmation()} </b>
-                The years were <b>{minYear}</b> - <b>{maxYear}</b>.
-            </div>}
+            {
+                victory && 
+                <React.Fragment>
+                    <div style={endGameStyle}>
+                        <b>{generateAffirmation()} </b>
+                        The years were <b>{minYear}</b> - <b>{maxYear}</b>.
+                    </div>
+                    
+                    <CountdownTimer />
+                </React.Fragment>
+            }
 
             {/* defeat message */}
-            {defeat && <div style={endGameStyle}>
-                Better luck next time! The years were <b>{minYear}</b> - <b>{maxYear}</b>.
-            </div>}
+            {
+                defeat && 
+                <React.Fragment>
+                    <div style={endGameStyle}>
+                        Better luck next time! The years were <b>{minYear}</b> - <b>{maxYear}</b>.
+                    </div>
+
+                    <CountdownTimer />
+                </React.Fragment>
+            }
         </div>
     );
 };

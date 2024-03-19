@@ -12,7 +12,7 @@ const isWithinDecade = (year: number, targetYear: number): boolean => {
     const lowerBound = targetDecade;
     const upperBound = lowerBound + 9;
 
-    return year >= lowerBound && year <= upperBound;
+    return (year >= lowerBound && year <= upperBound);
 }
 
 const isWithinCentury = (year: number, targetYear: number): boolean => {
@@ -20,7 +20,7 @@ const isWithinCentury = (year: number, targetYear: number): boolean => {
     const lowerBound = (targetCentury - 1) * 100;
     const upperBound = lowerBound + 99;
 
-    return year >= lowerBound && year <= upperBound;
+    return (year >= lowerBound && year <= upperBound);
 }
 
 // style for free space & last guessed year
@@ -28,6 +28,7 @@ const leftColumnStyle: React.CSSProperties = {
     fontFamily: 'DM Sans, sans-serif',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     marginTop: 'auto',
     marginBottom: 'auto',
     width: '150px',
@@ -38,9 +39,35 @@ const leftColumnStyle: React.CSSProperties = {
 // style for displayed hint (same decade/century)
 const hintStyle: React.CSSProperties = {
     width: '150px',
-    margin: 0,
+    margin: '3px 0 0 0',
     textAlign: 'center',
     fontWeight: 'bold',
+}
+
+const hintStyleCentury: React.CSSProperties = {
+    ...hintStyle,
+    backgroundColor: '#e60000',
+    color: '#ffffff',
+    paddingLeft: '5px',
+    paddingRight: '5px'
+}
+
+const hintStyleDecade: React.CSSProperties = {
+    ...hintStyle,
+    backgroundColor: '#0082e6',
+    color: '#ffffff',
+    paddingLeft: '5px',
+    paddingRight: '5px'
+}
+
+const yearStyle: React.CSSProperties = {
+    width: 'max-content',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: '#000000',
+    color: '#ffffff',
+    paddingLeft: '5px',
+    paddingRight: '5px'
 }
 
 const eventStyle: React.CSSProperties = {
@@ -63,31 +90,33 @@ const EventRow: React.FC<EventRowProps> = ({ year, targetYear, events }) => {
         <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
             {/* print either free space or last guessed year */}
             <div style={leftColumnStyle}>
-                {year === 0
-                    ? (<p style={leftColumnStyle}>
-                            FREE
-                        </p>
+                {year === -1
+                    ? (<div style={leftColumnStyle}>
+                            <span style={yearStyle}>
+                                FREE
+                            </span>
+                        </div>
                     ) : (
                         <React.Fragment>
-                            <p style={leftColumnStyle}>
+                            <span style={yearStyle}>
                                 {`${year} ${year < targetYear ? '↑' : '↓'}`}
-                            </p>
+                            </span>
                         </React.Fragment>
                     )
                 }
                 
                 {/* print hint(s) if applicable */}
-                <p style={hintStyle}>
+                <p style={hintStyleDecade}>
                     {isWithinDecade(year, targetYear) && <span>same decade!</span>}
                 </p>
-                <p style={hintStyle}>
+                <p style={hintStyleCentury}>
                     {isWithinCentury(year, targetYear) && <span>same century!</span>}
                 </p>
             </div>
             <VerticalSpacer />
 
             {/* render our slice of events[] as a list */}
-            <div style={{ backgroundColor: '#ededed' }}>
+            <div style={{ backgroundColor: '#ededed', marginTop: '5px', marginBottom: '5px' }}>
                 <ul style={{ listStyleType: 'disc' }}>
                     {events.map((event, index) => (
                         <li style={eventStyle} key={index}>
