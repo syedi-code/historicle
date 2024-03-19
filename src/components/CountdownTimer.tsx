@@ -25,6 +25,7 @@ const CountdownTimer: React.FC= () => {
         setSeconds(remainingSeconds);
     }
 
+    // update every second
     useEffect(() => {
         const timer = setInterval(calculateTimeRemaining, 1000);
         return () => clearInterval(timer);
@@ -38,7 +39,7 @@ const CountdownTimer: React.FC= () => {
 
     return (
         <div style={timerStyle}>
-            <b>Historicle</b> refreshes in <b>{hours}</b>h <b>{minutes}</b>m <b>{seconds}</b>s.
+            Historicle refreshes in <b>{hours}</b>h <b>{minutes}</b>m <b>{seconds}</b>s.
         </div>
     );
 }

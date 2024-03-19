@@ -106,12 +106,17 @@ const EventRow: React.FC<EventRowProps> = ({ year, targetYear, events }) => {
                 }
                 
                 {/* print hint(s) if applicable */}
-                <p style={hintStyleDecade}>
-                    {isWithinDecade(year, targetYear) && <span>same decade!</span>}
-                </p>
-                <p style={hintStyleCentury}>
-                    {isWithinCentury(year, targetYear) && <span>same century!</span>}
-                </p>
+                {isWithinDecade(year, targetYear) &&
+                    <p style={hintStyleDecade}>
+                        <span>same decade!</span>
+                    </p>
+                }
+
+                {isWithinCentury(year, targetYear) &&
+                    <p style={hintStyleCentury}>
+                        <span>same century!</span>
+                    </p>
+                }
             </div>
             <VerticalSpacer />
 

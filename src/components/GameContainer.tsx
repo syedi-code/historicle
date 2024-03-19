@@ -92,12 +92,12 @@ const GameContainer: React.FC = () => {
     }
 
     const labelStyle: React.CSSProperties = {
-        display: 'block',
-        marginTop: '10px',
-        marginBottom: '5px',
+        width: 'max-content',
         fontFamily: 'DM Sans, sans-serif',
         fontWeight: '900',
-        fontSize: '32px'
+        fontSize: '24px',
+        paddingRight: '10px',
+        paddingLeft: '10px'
     }
 
     const eventContainerStyle: React.CSSProperties = {
@@ -145,19 +145,23 @@ const GameContainer: React.FC = () => {
             <div style={inputContainerStyle}>
                 {/* year input & submit button */}
                 {!victory && !defeat && (
-                    <form>
-                        <label style={labelStyle}>
-                            WHAT YEAR IS IT?
-                        </label>
-                        <input 
-                            style={inputStyle}
-                            type="text"
-                            value={inputValue}
-                            maxLength={4}
-                            readOnly
-                            onChange={(e) => setInputValue(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                        />
-                    </form>
+                    <div>
+                        <div style={{ textAlign: 'center', marginBottom: '5px' }}>
+                            <span style={labelStyle}>
+                                WHAT YEAR IS IT?
+                            </span>
+                        </div>
+                        <form>
+                            <input 
+                                style={inputStyle}
+                                type="text"
+                                value={inputValue}
+                                maxLength={4}
+                                readOnly
+                                onChange={(e) => setInputValue(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                            />
+                        </form>
+                    </div>
                 )}
                 {/* keypad for year input */}
                 {!victory && !defeat && (
@@ -185,10 +189,15 @@ const GameContainer: React.FC = () => {
                 victory && 
                 <React.Fragment>
                     <div style={endGameStyle}>
-                        <b>{generateAffirmation()} </b>
-                        The years were <b>{minYear}</b> - <b>{maxYear}</b>.
+                        <span style={{ fontWeight: '600', color: '#0082e6' }}>
+                            {generateAffirmation()}
+                        </span>
+                        {' '} The years were {' '}
+                        <span style={{ fontWeight: '600', color: '#e60000' }}>
+                            {minYear} - {maxYear}.
+                        </span>
                     </div>
-                    
+
                     <CountdownTimer />
                 </React.Fragment>
             }
@@ -198,7 +207,13 @@ const GameContainer: React.FC = () => {
                 defeat && 
                 <React.Fragment>
                     <div style={endGameStyle}>
-                        Better luck next time! The years were <b>{minYear}</b> - <b>{maxYear}</b>.
+                        <span style={{ fontWeight: '600', color: '#e60000' }}>
+                            Better luck next time!
+                        </span>
+                        {' '} The years were {' '}
+                        <span style={{ fontWeight: '600', color: '#0082e6' }}>
+                            {minYear} - {maxYear}.
+                        </span>
                     </div>
 
                     <CountdownTimer />
