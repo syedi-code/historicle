@@ -1,6 +1,6 @@
 # Historicle
 
-A browser-based game where the player guesses a daily-rotating target year based on given historical events. Historicle is hosted online at [historiclega.me](historiclega.me). Inspired by other browser "dailies" such as Wordle, PokeDoku, and Cine2Nerdle among others.
+A browser-based game where the player guesses a daily-rotating target year based on given historical events. Historicle is hosted online at [historiclega.me](https://historiclega.me/). Inspired by other browser "dailies" such as Wordle, PokeDoku, and Cine2Nerdle among others.
 
 <hr style="border:none; height:3px; background-color:#cccccc;">
 
