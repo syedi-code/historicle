@@ -14,13 +14,15 @@
     721,
     755,
     756,
-    757,
-    758,
+    694,
+    699,
     732
   ],
-  "minYear": 705,
-  "maxYear": 758,
+  "minYear": 694,
+  "maxYear": 756,
   "events": [
+    "At the Seventeenth Council of Toledo, Egica, a king of the Visigoths of Hispania, accuses Jews of aiding Muslims, sentencing all Jews to slavery.",
+    "En no Ozuno, a Japanese mystic and apothecary who will later be regarded as the founder of a folk religion Shugend\u014d, is banished to Izu \u014cshima.",
     "Empress Wu Zetian abdicates the throne, restoring the Tang dynasty.",
     "Byzantine emperor Justinian II has his predecessors Leontios and Tiberios III publicly executed in the Hippodrome of Constantinople.",
     "In China, Emperor Zhongzong of Tang inters the bodies of relatives in the Qianling Mausoleum, located on Mount Liang outside Chang'an.",
@@ -42,8 +44,6 @@
     "In the Battle of the Zab, the Abbasid rebels defeat the Umayyad Caliphate, leading to the overthrow of the dynasty.",
     "Mayan king Bird Jaguar IV of Yaxchilan in modern-day Chiapas, Mexico, assumes the throne.",
     "An Lushan revolts against Chancellor Yang Guozhong at Yanjing, initiating the An Lushan Rebellion during the Tang dynasty of China.",
-    "Abd al-Rahman I, the founder of the Arab dynasty that ruled the greater part of Iberia for nearly three centuries, becomes emir of Cordova, Spain.",
-    "Du Fu returns to Chang'an as a member of Emperor Xuanzong's court, after having escaped the city during the An Lushan Rebellion.",
-    "Guangzhou is sacked by Arab and Persian pirates."
+    "Abd al-Rahman I, the founder of the Arab dynasty that ruled the greater part of Iberia for nearly three centuries, becomes emir of Cordova, Spain."
   ]
 }
