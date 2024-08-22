@@ -28,9 +28,17 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '5px',
-        width: '15%',
+        width: '500px',
+        maxWidth: '100%',
         margin: 'auto',
         marginBottom: '10px',
+    }
+
+    const containerStyle: React.CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '5px', 
+        margin: '1em'
     }
 
     // button components
@@ -81,7 +89,7 @@ const Keypad: React.FC<KeypadProps> = ({ onDigitClick, onBackspaceClick, onSubmi
 
     // display
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '10px', margin: 'auto', marginTop: '10px' }}>
+        <div style={containerStyle}>
             <div style={keypadStyle}>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((digit) => (
                     <DigitButton

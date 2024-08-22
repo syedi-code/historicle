@@ -35,12 +35,6 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
             <div style={titleContainerStyle}>
                 <span style={titleStyle}>{title}</span>
             </div>
-
-            <div>
-                <p style={subtitleStyle}>
-                    In this year...
-                </p>
-            </div>
         </header>
     );
 };

@@ -9,7 +9,7 @@ interface GuessTrackerProps {
 const guessContainerStyle: React.CSSProperties = {
     fontFamily: 'DM Sans, sans-serif',
     fontWeight: '900',
-    fontSize: '32px',
+    fontSize: '2vh',
     marginTop: '10px'
 }
 
