@@ -44,24 +44,18 @@ const GameContainer: React.FC = () => {
         }
     }, [inputValue, numGuesses]);
 
-    const useIsMobile = () => {
-        const [isMobile, setIsMobile] = useState<boolean>(false);
-    
-        useEffect(() => {
-            const mediaQuery = window.matchMedia('(max-width: 768px)');
-            setIsMobile(mediaQuery.matches);
-    
-            const handleResize = () => setIsMobile(mediaQuery.matches);
-    
-            // Add event listener to handle screen resize
-            mediaQuery.addEventListener('change', handleResize);
-    
-            // Cleanup event listener on component unmount
-            return () => mediaQuery.removeEventListener('change', handleResize);
-        }, []);
-    
-        return isMobile;
-    };
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => setIsMobile(mediaQuery.matches);
+
+        // Add event listener to handle screen resize
+        mediaQuery.addEventListener('change', handleResize);
+
+        // Cleanup event listener on component unmount
+        return () => mediaQuery.removeEventListener('change', handleResize);
+    }, []);
 
     // when pressing a keypad number; updates 'year' immediately
     const handleDigitClick = (digit: number) => {
@@ -129,6 +123,16 @@ const GameContainer: React.FC = () => {
         fontFamily: 'DM Sans, sans-serif',
         fontWeight: '900',
         fontSize: '90px'
+    }
+
+    const inputStyleMobile: React.CSSProperties = {
+        maxWidth: '50%',
+        height: '30px',
+        margin: '0',
+        textAlign: 'right',
+        fontFamily: 'DM Sans, sans-serif',
+        fontWeight: '900',
+        fontSize: '24px'
     }
 
     const labelStyle: React.CSSProperties = {
@@ -208,7 +212,7 @@ const GameContainer: React.FC = () => {
                         </div>
                         <form>
                             <input 
-                                style={inputStyle}
+                                style={isMobile ? inputStyleMobile : inputStyle}
                                 type="text"
                                 value={inputValue}
                                 maxLength={4}
@@ -225,6 +229,7 @@ const GameContainer: React.FC = () => {
                         onBackspaceClick={handleBackspaceClick}
                         onSubmitClick={handleSubmitClick}
                         inputValue={inputValue}
+                        isMobile={isMobile}
                     />
                 )}
 
