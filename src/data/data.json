@@ -1,6 +1,7 @@
 {
   "years": [
     96,
+    65,
     97,
     98,
     68,
@@ -11,9 +12,10 @@
     81,
     85
   ],
-  "minYear": 68,
+  "minYear": 65,
   "maxYear": 98,
   "events": [
+    "The freedman Milichus betrays Piso's plot to kill the Emperor Nero and all the conspirators are arrested.",
     "Nero commits suicide, after quoting Vergil's Aeneid, thus ending the Julio-Claudian dynasty and starting the civil war known as the Year of the Four Emperors.",
     "The Roman legions in Germania Superior refuse to swear loyalty to Galba. They rebel and proclaim Vitellius as emperor.",
     "Lucius Calpurnius Piso Licinianus is appointed by Galba as deputy Roman Emperor.",
@@ -36,7 +38,6 @@
     "Nerva, suspected of complicity of the death of Domitian, is declared emperor by Senate. The Senate then annuls laws passed by Domitian and orders his statues to be destroyed.",
     "Nerva is proclaimed Roman emperor after Domitian is assassinated.",
     "Roman emperor Nerva is forced by the Praetorian Guard to adopt general Marcus Ulpius Trajanus as his heir and successor.",
-    "Trajan succeeds his adoptive father Nerva as Roman emperor; under his rule the Roman Empire will reach its maximum extent.",
-    "On the death of Nerva, Trajan is declared Roman emperor in Cologne, the seat of his government in lower Germany."
+    "Trajan succeeds his adoptive father Nerva as Roman emperor; under his rule the Roman Empire will reach its maximum extent."
   ]
 }
